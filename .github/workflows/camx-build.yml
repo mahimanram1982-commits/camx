@@ -10,9 +10,11 @@ jobs:
           distribution: temurin
           java-version: 11
       - run: sudo apt-get update && sudo apt-get install -y libncurses5
+      - run: sed -i '/signingConfigs {/,/^    }/d' app/build.gradle
       - run: chmod +x gradlew
       - run: ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: camx-apk
           path: "**/build/outputs/apk/**/*.apk"
+        
